@@ -4,7 +4,11 @@ use uuid::Uuid;
 use crate::game::state::{Food, GameState, Player, WORLD_SIZE};
 
 #[derive(Debug, Deserialize)]
-#[serde(tag = "type", rename_all = "camelCase", rename_all_fields = "camelCase")]
+#[serde(
+    tag = "type",
+    rename_all = "camelCase",
+    rename_all_fields = "camelCase"
+)]
 pub enum ClientMsg {
     /// Sent on first connect, and again after death to respawn.
     Join {
@@ -17,7 +21,11 @@ pub enum ClientMsg {
 }
 
 #[derive(Debug, Serialize)]
-#[serde(tag = "type", rename_all = "camelCase", rename_all_fields = "camelCase")]
+#[serde(
+    tag = "type",
+    rename_all = "camelCase",
+    rename_all_fields = "camelCase"
+)]
 pub enum ServerMsg {
     Welcome {
         id: Uuid,
@@ -126,7 +134,10 @@ mod tests {
 
     #[test]
     fn server_died_msg_serializes_camel_case_fields() {
-        let json = serde_json::to_string(&ServerMsg::Died { eaten_by: "Bob".into() }).unwrap();
+        let json = serde_json::to_string(&ServerMsg::Died {
+            eaten_by: "Bob".into(),
+        })
+        .unwrap();
         assert!(json.contains("\"eatenBy\":\"Bob\""), "got: {json}");
     }
 
